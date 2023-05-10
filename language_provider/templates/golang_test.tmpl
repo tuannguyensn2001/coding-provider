@@ -1,0 +1,45 @@
+package main
+
+import (
+	"fmt"
+	"github.com/stretchr/testify/require"
+	"testing"
+)
+
+type Input struct {
+	{{- range $index, $param := .Params }}
+	Param{{$index}} {{$param.Type}}
+	{{- end }}
+}
+
+type Output = {{ .Output.Type }}
+
+type Testcase struct {
+	Input  Input
+	Output Output
+}
+
+
+func Test(t *testing.T) {
+	tests := []Testcase{
+    		        		{{- range $index,$param := .Testcase }}
+    		        				{Input{
+    		        				    {{- range $index, $param := $param.Input }}
+    		        						Param{{$index}}: {{$param}},
+    		        					{{- end }}
+    		        				}, {{$param.Output}} },
+    		        		{{- end }}
+
+    	}
+
+   for index, item := range tests {
+   		t.Run(fmt.Sprintf("test-%d", index+1), func(t *testing.T) {
+   			result := {{.MethodName}}(
+   				{{- range $index, $param := .Params }}
+   					item.Input.Param{{$index}},
+   				{{- end }}
+   				)
+   			require.Equal(t, item.Output, result, "Test %d failed", index+1)
+   		})
+   	}
+}

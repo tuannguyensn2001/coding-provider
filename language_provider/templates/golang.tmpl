@@ -1,0 +1,4 @@
+
+func {{ .MethodName }}({{ range $index, $param := .Params }}{{ $param.Name }} {{ $param.Type }}, {{ end }}) {{ .Output.Type }} {
+    return 6
+}

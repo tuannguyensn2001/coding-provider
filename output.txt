@@ -1,0 +1,18 @@
+=== RUN   Test
+=== RUN   Test/test-1
+=== RUN   Test/test-2
+    main_test.go:23: 
+        	Error Trace:	/app/main_test.go:23
+        	Error:      	Not equal: 
+        	            	expected: 5
+        	            	actual  : 4
+        	Test:       	Test/test-2
+        	Messages:   	Test 2 failed
+=== RUN   Test/test-3
+--- FAIL: Test (0.00s)
+    --- PASS: Test/test-1 (0.00s)
+    --- FAIL: Test/test-2 (0.00s)
+    --- PASS: Test/test-3 (0.00s)
+FAIL
+exit status 1
+FAIL	test	0.002s
